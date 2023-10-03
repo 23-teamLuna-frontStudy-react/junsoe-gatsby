@@ -1,9 +1,8 @@
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import React from "react";
 import Layout from "../../components/Layout";
-import { graphql } from "gatsby";
 import Seo from "../../components/Seo";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { getImage } from "gatsby-plugin-image";
 
 interface IBlogPostProps {
   data: Queries.PostDetailQuery;
@@ -25,13 +24,12 @@ export default function BlogPost({ data, children }: IBlogPostProps) {
 export const query = graphql`
   query PostDetail($frontmatter__slug: String) {
     mdx(frontmatter: { slug: { eq: $frontmatter__slug } }) {
-      body
       frontmatter {
         author
         category
         date
-        slug
         title
+        slug
         headerImage {
           childImageSharp {
             gatsbyImageData(height: 450, placeholder: BLURRED)
@@ -43,5 +41,5 @@ export const query = graphql`
 `;
 
 export const Head = ({ data }: IBlogPostProps) => (
-  <Seo title={data.mdx?.frontmatter?.title} />
+  <Seo title={data.mdx?.frontmatter?.title!} />
 );
